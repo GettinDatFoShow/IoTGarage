@@ -1,0 +1,160 @@
+<!-- code is dirty, but works  -->
+<!-- // Created and written by Robert Morris, USAR OIF Veteran and CS Student at Delaware State University -->
+<!-- writen by Robert Morris with no prior HTML or CSS knowledge -->
+<head>
+  <title>IoHome Garage</title>
+  <style>
+    .main body {
+      background-color: #ffffff;
+      font-family: Helvetica Neue;
+      font-size: 14px;
+      align-content: center;
+      align-self: center;
+      align-items: center;
+    }
+    div{
+      align-content: center;
+      align-self: center;
+      align-items: center;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #ffffff;
+      font-family: Helvetica Neue;
+      font-size: 14px;
+      align-content: center;
+      align-self: center;
+    }
+    .btn {
+      border-radius: 4px;
+      background: #0899d4;
+      color: #ffffff;
+      text-transform: uppercase;
+      border: none;
+      padding: 10px 20px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      text-align: center;
+      min-width: 100%;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 2px solid #8a8a8a;
+    }
+
+    .btn:hover {
+      cursor: pointer;
+      background: #8a8a8a;
+      color: #0899d4;
+      border: 2px solid #0899d4;
+    }
+    .statusUnknown {
+      border-radius: 4px;
+      background: #8a8a8a;
+      color: #ffffff;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      text-align: center;
+      min-width: 100%;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 2px solid #8a8a8a;
+    }
+    .statusOpen{
+      border-radius: 4px;
+      background: #3cab26;
+      color: #ffffff;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      text-align: center;
+      min-width: 100%;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 2px solid #8a8a8a;
+    }
+    .statusClosed{
+      border-radius: 4px;
+      background: #e32424;
+      color: #ffffff;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      text-align: center;
+      min-width: 100%;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 2px solid #8a8a8a;
+    }
+
+    h1 {
+      position: relative;
+      text-align: center;
+      margin: 4px 0px;
+      padding: 0px 30px;
+      font-size: 3em;
+      color: #0899d4;
+      text-shadow:  2px 2px 4px #8a8a8a;
+    }
+    h2 {
+      position: relative;
+      text-align: center;
+      margin: 4px 0px;
+      padding: 0px 30px;
+      font-size: 2.0em;
+      color: #0899d4;
+      text-shadow:  0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      text-shadow:  1px 1px 2px #8a8a8a;
+    }
+    hr {
+      background: #0899d4;
+    }
+    .main ul {
+      position: relative;
+      width: 60vh;
+      align-content: center;
+      align-self: center;
+      align-items: center;
+    }
+
+    .main li{
+      position: relative;
+    }
+  </style>
+</head>
+
+      <header>
+        <h1>
+            IoHome Garage
+        </h1>
+        <hr/>
+      </header>
+      <body class="main">
+        <ul>
+          <li>
+            <a href=\ "DoorOpen\"><button class="btn">Open</button></a>&nbsp;
+          </li>
+          <li>
+            <a href=\ "DoorClose\"><button class="btn">Close</button></a>&nbsp;
+          </li>
+          <li>
+            <a href=\ "CheckDoor\"><button class="btn">Check</button></a>&nbsp;
+          </li>
+        </ul>
+      </body>
+      <div>
+        <hr/>
+        <h2>
+          Garage Status:
+<!-- Here is where the status updates will be applied -->
+          <ul>
+            <li>
+              <button class="statusClosed">
+                Closed
+              </button>
+            </li>
+          </ul>
+        </h2>
+      </div>
