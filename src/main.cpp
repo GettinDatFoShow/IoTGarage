@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <FS.h>
 
 const char* ssid = "YourWireless";
 const char* password = "password";
@@ -9,7 +8,6 @@ const int PORT = 1234;
 const char* hostName = "Desired_HostName";
 int openCount = 0;
 int closedCount = 0;
-uint8_t currentState = 0;
 ESP8266WebServer server(PORT); // Server object creation and port assignment
 String openCountStr = "N/A";
 String closedCountStr = "N/A";
@@ -117,7 +115,6 @@ const String webPage = // changes to main webpage string can be added here
   "app.controller('serverCtrl', ['$scope', '$http', function($scope, $http){" // important angular app declaration
     "$scope.CurrentDate = new Date();"
     "$scope.timeChecked = new Date();"
-
     "$scope.openClick = function(){" // on click function for garage door to open
       "$http.get('DoorOpen')" // http get request to server
       ".then(function(response) {" // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
@@ -125,6 +122,7 @@ const String webPage = // changes to main webpage string can be added here
           "$scope.status = false;"
           "$scope.status = response.data.DoorData[0].status;"
           "$scope.timeChecked = new Date();"
+          "$scope.doorStatus = $scope.status ? 'Open' : 'Close';"
        "});"
     "},"
 
@@ -135,6 +133,7 @@ const String webPage = // changes to main webpage string can be added here
           "$scope.status = true;"
           "$scope.status = response.data.DoorData[0].status;"
           "$scope.timeChecked = new Date();"
+          "$scope.doorStatus = $scope.status ? 'Open' : 'Close';"
       "});"
 
     "},"
@@ -145,6 +144,7 @@ const String webPage = // changes to main webpage string can be added here
           "$scope.data = response.data;"
           "$scope.status = response.data.DoorData[0].status;"
           "$scope.timeChecked = new Date();"
+          "$scope.doorStatus = $scope.status ? 'Open' : 'Close';"
       "});"
 
     "}"
@@ -212,9 +212,9 @@ const String webPage = // changes to main webpage string can be added here
             "  <h4>"
             "<span>"
                 "The Garage is Currently : "
-                " {{ status ? 'Open' : 'Closed' }}" // if status true string is 'Open' else string is 'Closed'
-                "<i ng-hide=\"{{serverCtrl.status}}\"class=\"material-icons md-light\" >arrow_downward</i>" // ng hide show based on status boolean
-                "<i ng-show=\"{{serverCtrl.status}} \" class=\"material-icons md-light\" >arrow_downward</i>"
+                " {{ doorStatus }}" // if status true string is 'Open' else string is 'Closed'
+                "<i ng-hide=\"status\"class=\"material-icons md-light\" >arrow_downward</i>" // ng hide show based on status boolean
+                "<i ng-show=\"status \" class=\"material-icons md-light\" >arrow_downward</i>"
                 "</span>"
                 "<br>"
                 " Last Time Checked : "
@@ -295,7 +295,7 @@ const String webPage = // changes to main webpage string can be added here
 "</script>"
 "</html>";
 
-IPAddress staticIP(192, 168, 1, 88); // enter your static ip here
+IPAddress staticIP(192, 168, 1, 0); // enter your static ip here
 IPAddress gateway(192, 168, 1 ,1); // enter your gateway
 IPAddress subnet(255, 255, 255, 0); // enter your subnet mask
 
