@@ -1,0 +1,378 @@
+  <!doctype html>
+ <html ng-app="myApp" ng-controller="serverCtrl">
+ <head>
+   <!-- // angular cdn -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- // material cdn for css and design -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- // material cdn auto color styling -->
+   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
+    <!-- // material cdn -->
+   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+   <title>IoHome</title>
+
+<!-- // css -->
+   <style>
+     .demo-list-action {
+       min-width: inherit;
+     }
+     h2 {
+       text-align: center;
+       color: rgb(96,125,139);
+     }
+     h3 {
+       text-align: center;
+       color: rgb(96,125,139);
+     }
+     h4  {
+       text-align: center;
+       color: rgb(96,125,139);
+     }
+     .data-card{
+       color: rgb(255,255,255);
+     }
+     a.data-card{
+       color: rgb(255,255,255);
+     }
+     .material-icons {
+       font-size: 30;
+     }
+     .mdl-list__item .mdl-list__item-primary-content {
+       padding-left: 40px;
+       padding-right: 40px;
+     }
+     hr {
+
+       display: block;
+       height: 1px;
+       border: 0;
+       border-top: 5px solid rgb(96,125,139);
+       margin: 1em 0;
+       padding: 0;
+     }
+     .mdl-card {
+       padding-left: 40px;
+       padding-right: 40px;
+     }
+     .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+     .mdl-button--raised {
+       min-width: 90%;
+       font-weight: 550;
+     }
+     .demo-card-event.mdl-card {
+       width: 100%;
+     }
+     .demo-card-event > .mdl-card__actions {
+       background-color: rgb(96,125,139);
+     }
+     .demo-card-event > .mdl-card__title {
+       align-items: flex-start;
+     }
+     .demo-card-event > .mdl-card__title > h4 {
+       margin-top: 0;
+     }
+     .demo-card-event > .mdl-card__actions {
+       display: flex;
+       box-sizing:border-box;
+       align-items: center;
+     }
+     .demo-card-event > .mdl-card__actions > .material-icons {
+       padding-right: 10px;
+     }
+     .demo-card-event > .mdl-card__title,
+     .demo-card-event > .mdl-card__actions,
+     .demo-card-event > .mdl-card__actions > .mdl-button {
+       background-color: rgb(96,125,139);
+       color: #FFFFFF;
+     }
+     .mdl-spinner {
+       margin-top: 8px;
+       margin-right: 15px;
+     }
+   </style>
+ </head>
+
+<!-- // header for regular web page sizes -->
+ <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+   <header class="mdl-layout__header">
+     <div class="mdl-layout__header-row">
+       <i class="material-icons">home</i>
+       <span class="mdl-layout-title"> IoHome Control - {{ deviceName }} </span>
+       <div class="mdl-layout-spacer"></div>
+       <nav class="mdl-navigation mdl-layout--large-screen-only">
+         <a class="mdl-navigation__link" href="http://cssoldier.blogspot.com/">My Blog</a>
+         <a class="mdl-navigation__link" href="https://www.linkedin.com/in/robert-morris-575b89b0/">Linked In</a>
+         <a class="mdl-navigation__link" href="https://plus.google.com/u/0/+RobertMorris-CSsoldier">Google+</a>
+         <a class="mdl-navigation__link" href"https://github.com/GettinDatFoShow">GitHub</a>
+       </nav>
+     </div>
+   </header>
+<!-- // header for smaller web page sizes such as phones -->
+   <div class="mdl-layout__drawer">
+     <span class="mdl-layout-title">Contact</span>
+     <nav class="mdl-navigation">
+       <a class="mdl-navigation__link" href="http://cssoldier.blogspot.com/">My Blog</a>
+       <a class="mdl-navigation__link" href="https://www.linkedin.com/in/robert-morris-575b89b0/">Linked In</a>
+       <a class="mdl-navigation__link" href="https://plus.google.com/u/0/+RobertMorris-CSsoldier">Google+</a>
+       <a class="mdl-navigation__link" href="https://github.com/GettinDatFoShow">GitHub</a>
+     </nav>
+   </div>
+<!-- // important to declare your ng app Controller -->
+   <main ng-controller="serverCtrl" class="mdl-layout__content">
+     <div  class="page-content">
+       <header>
+         <span>
+         <h4>{{ CurrentDate | date:'dd, MMMM yyyy'}}</h4>
+         </span>
+         <hr/>
+       </header>
+
+       <body >
+
+         <div class="demo-list-action mdl-list">
+
+           <div class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                 <md-button ng-click="openClick()" id="show-snackbar" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button">Open
+                   <a class="mdl-layout-spacer"></a>
+                <i class="material-icons" style="color:rgb(255,255,255)">arrow_upward</i>
+                 </md-button>
+                 <div id="snackbar-opening" class="mdl-js-snackbar mdl-snackbar">
+                   <div class="mdl-snackbar__text"></div>
+                   <a class="mdl-snackbar__action" type="button"></a>
+                   <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+                 </div>
+           </span>
+           </div>
+
+          <div class="mdl-list__item">
+             <span  class="mdl-list__item-primary-content">
+                 <md-button ng-click="closeClick()" id="show-snackbar-2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button">CLOSE
+                   <a class="mdl-layout-spacer"></a>
+                   <i class="material-icons" style="color:rgb(255,255,255)">arrow_downward</i>
+                 </md-button>
+
+                 <div id="snackbar-closing" class="mdl-js-snackbar mdl-snackbar">
+                   <div class="mdl-snackbar__text"></div>
+                   <a class="mdl-snackbar__action" type="button"></a>
+                   <!-- // spinner status display when snackbar pops up -->
+                   <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+                 </div>
+           </span>
+           </div>
+
+           <div class="mdl-list__item">
+             <span class="mdl-list__item-primary-content">
+            <md-button ng-click="checkClick()" id="show-snackbar-3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button">CHECK
+              <a class="mdl-layout-spacer"></a>
+              <i class="material-icons" style="color:rgb(255,255,255)">cached</i>
+            </md-button>
+                 <div id="snackbar-checking" class="mdl-js-snackbar mdl-snackbar">
+                   <div class="mdl-snackbar__text"></div>
+                   <a class="mdl-snackbar__action" type="button"></a>
+                   <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+                 </div>
+           </span>
+           </div>
+           </div>
+
+            <!-- // demo card for information -->
+           <div class="demo-card-event mdl-card mdl-shadow--2dp">
+             <div  class="mdl-card__actions">
+                <!-- // if status true string is 'Open' else string is 'Closed' -->
+                  <a class="data-card"> The Garage is
+                    <a class="data-card" ng-show="status"> : Open </a>
+                    <a class="data-card" ng-hide="status" > : Closed </a>
+                  </a>
+                   <a class="mdl-layout-spacer"></a>
+                   <md-button ng-show="status" ng-click="closeClick()" class="material-icons md-warn" style="color:#ff6700"> ic_warning </md-button>
+                   <md-button ng-hide="status" ng-click="openClick()" class="material-icons" > arrow_downward </md-button>
+                 </div>
+                 <div class="mdl-card__actions ">
+                     <!-- // date/time variable piped into angular time display -->
+                       <a class="data-card"> Last Checked: {{ timeChecked | date:'hh:mm a'}} </a>
+                       <a class="mdl-layout-spacer"></a>
+                       <md-button class="material-icons">event </md-button>
+                   </div>
+                   <div  class="mdl-card__actions ">
+                     <!-- here is the displayed timer minutes -->
+                       <a class="data-card" >Timer
+                       <a class="data-card" ng-show="timerState">: '{{ minutes }}' Min </a>
+                       <a class="data-card" ng-hide="timerState" >: Timer Off <a> </span>
+                       <a class="mdl-layout-spacer"></a>
+                       <md-button ng-click="disableClick()" ng-show="timerState" class="material-icons" > ic_access_time </md-button>
+                       <md-button ng-click="enableClick()" ng-hide="timerState" class="material-icons" style="color:#ff6700"> ic_warning </md-button>
+                  </div>
+
+
+            <div  class="mdl-card__actions mdl-card--border">
+              <a ng-show="timerState" ng-click="disableClick()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Timer On
+              </a>
+              <a ng-hide="timerState" ng-click="enableClick()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Timer Off
+              </a>
+              <div class="mdl-layout-spacer"></div>
+              <!-- // ng hide show based on status boolean -->
+              <i ng-show="timerState" class="material-icons md-light" ng-click="disableClick()" >ic_timer</i>
+              <i ng-hide="timerState " class="material-icons md-light" ng-click="enableClick()" >ic_timer_off</i>
+            </div>
+          </div>
+      </body>
+    </div>
+  </main>
+  </div>
+
+
+<!-- // ************************ JAVA SCRIPT ***************************************************** -->
+
+  <script>
+  var app = angular.module('myApp',[]) // important angularjs app declaration
+  .controller('serverCtrl', ['$scope', '$http', function($scope, $http){ // important angular app declaration
+    $scope.CurrentDate = new Date();
+    $scope.timeChecked = new Date();
+    $scope.timerState = 'Unknown';
+    $scope.minutes = 0;
+    $scope.deviceName = 'Garage';
+    // $scope.timer = $moment.duration(10, 'seconds').timer({loop: true}, function() {
+    //   $scope.checkClick;
+    // });
+    $scope.openClick = function(){ // on click function for garage door to open
+      // $http.get('DoorOpen') // http get request to server
+      $http.get('DoorOpen') // http get request to server
+      .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+          $scope.data = response.data;
+          $scope.status = response.data.DoorData.status;
+          $scope.timeChecked = new Date();
+          $scope.timerState = response.data.DoorData.timerState;
+          console.log('response : ' + response);
+          console.log('status : ' + $scope.status);
+          console.log('TimerState : ' + $scope.timerState);
+          $scope.minutes = response.data.DoorData.timerMinutes;
+       });
+    },
+
+    $scope.closeClick = function() { // on click function for garage door to close
+      // $http.get('DoorClose') // http get request to server
+      $http.get('DoorClose') // http get request to server
+      .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+          $scope.data = response.data;
+          $scope.status = response.data.DoorData.status;
+          $scope.timeChecked = new Date();
+          $scope.timerState = response.data.DoorData.timerState;
+          console.log('response : ' + response);
+          console.log('status : ' + $scope.status);
+          console.log('TimerState : ' + $scope.timerState);
+          $scope.minutes = response.data.DoorData.timerMinutes;
+      });
+    },
+
+    $scope.checkClick = function() { // on click function for checking garage staus
+      // $http.get('CheckDoor') // http get request to server
+      $http.get('CheckDoor') // http get request to server
+      .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+          $scope.data = response.data;
+          $scope.status = response.data.DoorData.status;
+          $scope.timeChecked = new Date();
+          $scope.timerState = response.data.DoorData.timerState;
+          console.log('response : ' + response);
+          console.log('status : ' + $scope.status);
+          console.log('TimerState : ' + $scope.timerState);
+          $scope.minutes = response.data.DoorData.timerMinutes;
+          console.log('timerMinutes : ' + $scope.minutes);
+      });
+    },
+
+      $scope.disableClick = function() { // on click function for checking garage staus
+        // $http.get('DisableTimer') // http get request to server
+        $http.get('DisableTimer') // http get request to server
+        .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+            $scope.data = response.data;
+            $scope.status = response.data.DoorData.status;
+            $scope.timerState = response.data.DoorData.timerState;
+            $scope.minutes = response.data.DoorData.timerMinutes;
+            console.log('response : ' + response);
+            console.log('status : ' + $scope.status);
+            console.log('TimerState : ' + $scope.timerState);
+        });
+    },
+
+        $scope.enableClick = function() { // on click function for checking garage staus
+          // $http.get('EnableTimer') // http get request to server
+          $http.get('EnableTimer') // http get request to server
+          .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+              $scope.data = response.data;
+              $scope.status = response.data.DoorData.status;
+              $scope.timerState = response.data.DoorData.timerState;
+              $scope.minutes = response.data.DoorData.timerMinutes;
+              console.log('response : ' + response);
+              console.log('status : ' + $scope.status);
+              console.log('TimerState : ' + $scope.timerState);
+          });
+    },
+
+    (function() { // immediately invoked function that is called when the page loads
+      $scope.checkClick;
+    }());
+
+  }]);
+
+// immediately invoked function that is called when the page loads to create an event listener
+(function() { // Demo snakbar function, provides a bottom of the page pop up alert
+  'use strict';
+  var snackbarContainer = document.querySelector('#snackbar-checking');
+  var showSnackbarButton = document.querySelector('#show-snackbar-3');
+  var handler = function(event) {
+  };
+  showSnackbarButton.addEventListener('click', function() {
+    'use strict';
+    var data = {
+      message: 'No problem.....',
+      timeout: 2000,
+      actionHandler: handler,
+      actionText: 'Checking!'
+    };
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    });
+  }());
+// immediately invoked function that is called when the page loads to create an event listener
+(function() { // Demo snakbar function, provides a bottom of the page pop up alert
+'use strict';
+var snackbarContainer = document.querySelector('#snackbar-closing');
+var showSnackbarButton = document.querySelector('#show-snackbar-2');
+var handler = function(event) {
+};
+showSnackbarButton.addEventListener('click', function() {
+ 'use strict';
+var data = {
+message: 'Your Garage door is ',
+ timeout: 12000,
+actionHandler: handler,
+actionText: 'Closing!'
+};
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    });
+  }());
+// immediately invoked function that is called when the page loads to create an event listener
+(function() { // Demo snakbar function, provides a bottom of the page pop up alert
+  'use strict';
+  var snackbarContainer = document.querySelector('#snackbar-opening');
+  var showSnackbarButton = document.querySelector('#show-snackbar');
+  var handler = function(event) {
+  };
+  showSnackbarButton.addEventListener('click', function() {
+    'use strict';
+    var data = {
+      message: 'Your Garage door is ',
+      timeout: 12000,
+      actionHandler: handler,
+      actionText: 'Opening!'
+    };
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+
+</script>
+</html>
