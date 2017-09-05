@@ -314,9 +314,35 @@
     },
 
     (function() { // immediately invoked function that is called when the page loads
-      $scope.checkClick;
+      $http.get('CheckDoor') // http get request to server
+      .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+          $scope.data = response.data;
+          $scope.status = response.data.DoorData.status;
+          $scope.timeChecked = new Date();
+          $scope.timerState = response.data.DoorData.timerState;
+          console.log('response : ' + response);
+          console.log('status : ' + $scope.status);
+          console.log('TimerState : ' + $scope.timerState);
+          $scope.minutes = response.data.DoorData.timerMinutes;
+          console.log('timerMinutes : ' + $scope.minutes);
+      });
     }());
 
+    $interval(function() { // calls back after a 30 second interval to check on the door
+      $http.get('CheckDoor') // http get request to server
+      .then(function(response) { // creating a promise.. keeps the page from waiting for a response but acts after a response is recieved
+          $scope.data = response.data;
+          $scope.status = response.data.DoorData.status;
+          $scope.timeChecked = new Date();
+          $scope.timerState = response.data.DoorData.timerState;
+          console.log('response : ' + response);
+          console.log('status : ' + $scope.status);
+          console.log('TimerState : ' + $scope.timerState);
+          $scope.minutes = response.data.DoorData.timerMinutes;
+          console.log('timerMinutes : ' + $scope.minutes);
+      });
+    }, 30000);
+  }]);
   }]);
 
 // immediately invoked function that is called when the page loads to create an event listener
